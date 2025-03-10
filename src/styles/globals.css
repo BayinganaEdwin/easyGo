@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  background-color: #ffffff !important;
+}
+
+.transparent-background {
+  background-color: rgba(0, 0, 0, 0.266);
+}
+
+.auth__backgroundImage {
+  background-color: #c1cf16;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.tooltip {
+  border-radius: 0.35rem;
+  background: #3a3a3c;
+  padding: 1rem;
+  box-shadow: 15px 30px 40px 5px rgba(0, 0, 0, 0);
+  text-align: center;
+}
+
+.ant-alert-description {
+  text-align: left;
+}
+
+/* Input */
+.custom-password-icon .ant-input-password-icon {
+  @apply text-secondary;
+  cursor: pointer;
+}
+
+.custom-input-text .ant-input {
+  @apply text-secondary;
+}
+.custom-input-text-size .ant-input {
+  @apply text-secondary;
+  font-size: smaller;
+}
+.custom-header-input-text-size .ant-input {
+  @apply text-white;
+  font-size: smaller;
+}
+.custom-header-input-text-size-2 .ant-input {
+  @apply text-secondary;
+  font-size: smaller;
+}
+
+.custom-input-password-text .ant-input-password {
+  @apply text-secondary;
+}
+
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: #1c2834;
+}
+/* Custom placeholder color for Ant Design inputs */
+.ant-input::placeholder {
+  color: #79878f !important;
+}
+
+.ant-input-affix-wrapper input::placeholder {
+  color: #79878f !important;
+}
+
+.ant-input-password input::placeholder {
+  color: #79878f !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+*::-webkit-scrollbar {
+  width: 0.3em;
+  height: 0.5em;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #434242;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* Breadcrumb */
+.custom-breadcrumb .ant-breadcrumb-link {
+  color: black;
+  font-size: smaller;
+}
+
+.custom-breadcrumb .ant-breadcrumb-link a,
+.custom-breadcrumb .ant-breadcrumb-separator {
+  color: black !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.content-wrapper {
+  margin-top: 60px;
+}
+
+/* Form Validation labels */
+.error-message {
+  color: red;
+  font-size: 10px;
+}
+
+@media (max-width: 249px) {
+  .content-wrapper {
+    margin-top: 30%;
+  }
+}
+
+@media (min-width: 250px) and (max-width: 320px) {
+  .content-wrapper {
+    margin-top: 20%;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+  .content-wrapper {
+    margin-top: 18%;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 429px) {
+  .content-wrapper {
+    margin-top: 18%;
+  }
+}
+@media (min-width: 430px) and (max-width: 490px) {
+  .content-wrapper {
+    margin-top: 16%;
+  }
+}
+@media (min-width: 491px) and (max-width: 576px) {
+  .content-wrapper {
+    margin-top: 14%;
+  }
+}
+@media (min-width: 491px) and (max-width: 540px) {
+  .content-wrapper {
+    margin-top: 13%;
+  }
+}
+
+@media (min-width: 541px) and (max-width: 600px) {
+  .content-wrapper {
+    margin-top: 14%;
+  }
+}
+@media (min-width: 601px) and (max-width: 690px) {
+  .content-wrapper {
+    margin-top: 10%;
+  }
+}
+@media (min-width: 691px) and (max-width: 767px) {
+  .content-wrapper {
+    margin-top: 10%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 960px) {
+  .content-wrapper {
+    margin-top: 8.5%;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1024px) {
+  .content-wrapper {
+    margin-top: 9%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .content-wrapper {
+    margin-top: 5.5%;
+  }
+}
