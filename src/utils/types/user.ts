@@ -1,6 +1,6 @@
-import { Category } from "./category";
-import { Product } from "./product";
-import { Role } from "./role";
+import { Category } from './category';
+import { Product } from './product';
+import { Role } from './role';
 
 export type UserSchema = {
   id: string;

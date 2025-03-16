@@ -13,7 +13,7 @@ const variantClasses: Record<string, string> = {
   header: 'text-4xl font-extrabold',
   title: 'text-2xl font-bold',
   subTitle: 'text-xl font-bold',
-  body: 'text-xs',
+  body: 'text-sm',
   caption: 'text-xs text-textGray',
 };
 
