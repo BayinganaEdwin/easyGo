@@ -1,4 +1,4 @@
-import { UserSchema } from "./user";
+import { UserSchema } from './user';
 
 export type Category = {
   id: string;
