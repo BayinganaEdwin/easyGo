@@ -38,7 +38,7 @@ const Input: FC<CustomInputProps> = ({
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const classes = classNames(
-    'rounded-lg bg-secondaryBackground custom-input-text custom-placeholder-color',
+    'rounded-lg bg-[#3C364C] custom-input-text custom-placeholder-color text-white',
     typeClasses[type],
     sizeClasses[size],
     className,
