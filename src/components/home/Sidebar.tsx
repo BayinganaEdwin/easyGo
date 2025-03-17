@@ -84,7 +84,7 @@ const Sidebar = ({
   const settingsOption = sidebarOptions[sidebarOptions.length - 1];
 
   return (
-    <Flex justify="space-between" className="hidden md:flex flex-col pl-2 my-8 w-[15%]">
+    <Flex justify="space-between" className="hidden lg:flex flex-col pl-2 my-8 w-[15%]">
       <Flex justify="space-between" className="flex-col pl-2">
         <Typography variant="title" className="pl-3">
           easyGo.

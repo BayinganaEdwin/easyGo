@@ -17,7 +17,7 @@ const HomeContent: React.FC = () => {
     <Flex className="h-screen bg-primaryBackground w-full">
       <Sidebar onOptionSelect={setSelectedSidebarOption} />
 
-      <Flex className="text-black bg-secondaryBackground w-full md:w-[85%] m-2 md:m-5 p-3 rounded-2xl overflow-y-auto scrollbar-hide">
+      <Flex className="text-black bg-secondaryBackground w-full lg:w-[85%] m-2 lg:m-5 p-3 rounded-2xl overflow-y-auto scrollbar-hide">
         {selectedSidebarOption?.label == SIDEBAR_LABEL_ENUMS.HOME && <HomeComponent />}
         {selectedSidebarOption?.label === SIDEBAR_LABEL_ENUMS.TICKETS && <TicketsComponent />}
         {selectedSidebarOption?.label === SIDEBAR_LABEL_ENUMS.SCHEDULE && <ScheduleComponent />}
