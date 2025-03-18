@@ -20,7 +20,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
       </Head>
       <Flex justify="center" className="h-screen bg-[#2c2638] p-2 flex-col md:flex-row">
         
-        {/* Left Section - Hidden on Mobile */}
+      
         <Flex
           vertical
           justify="space-between"
@@ -44,7 +44,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
           </Flex>
         </Flex>
         
-        {/* Right Section - Account Info */}
+       
         <Flex className="w-full md:w-1/2 items-center justify-center">
           <Flex
             justify="center"
