@@ -12,46 +12,51 @@ import Image from 'next/image';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactElement;
-};
-
-const Login: NextPageWithLayout = () => {
+const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
   return (
     <Fragment>
       <Head>
         <title>Login | EasyGo</title>
       </Head>
-      <Flex justify="space-between" className="h-screen bg-[#2c2638] p-2">
+      <Flex justify="center" className="h-screen bg-[#2c2638] p-2 flex-col md:flex-row">
         
-        <Flex vertical justify="space-between" className="w-1/2 rounded-3xl m- overflow-hidden">
+        {/* Left Section - Hidden on Mobile */}
+        <Flex
+          vertical
+          justify="space-between"
+          className="hidden md:flex md:w-1/2 rounded-3xl overflow-hidden relative">
           <Image
             src={EasyBus}
             alt="logo"
-            className="object-cover w-full h-full relative opacity-50"
+            className="object-cover w-full h-full opacity-50"
           />
-          <Flex justify="space-between" className=" absolute w-[50%]">
-            <Flex justify="space-between">
+          <Flex justify="space-between" className="absolute w-[50%]">
+            <Flex>
               <Image src={EasyLogo} alt="logo" className="object-cover w-[15%] py-4 px-1" />
-            </Flex>
-            <Flex className="inline-flex">
-              <a
+            </Flex >
+            <Flex>
+              <a 
                 href="#"
-                className="font-medium text-base  text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 ">
+                className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400">
                 Back to website<span>-</span>
               </a>
             </Flex>
           </Flex>
         </Flex>
-        <Flex className="w-1/2 items-center">
+        
+        {/* Right Section - Account Info */}
+        <Flex className="w-full md:w-1/2 items-center justify-center">
           <Flex
             justify="center"
-            className="m-8 p-4 shadow-inner hover:shadow-lg rounded-3xl w-full">
-            <Flex vertical style={{ gap: '2rem' }} className="w-[55%]">
-              <Typography variant="header" className="text-white">
+            className="m-8 p-4 shadow-inner hover:shadow-lg rounded-3xl w-full max-w-md">
+            <Flex vertical style={{ gap: '2rem' }} className="w-full px-4 sm:px-8">
+              <Flex justify="center" className="md:hidden">
+                <Image src={EasyLogo} alt="logo" className="object-cover w-20" />
+              </Flex>
+              <Typography variant="header" className="text-white text-center">
                 Login
               </Typography>
-              <Typography variant="subTitle" className="text-gray-400">
+              <Typography variant="subTitle" className="text-gray-400 text-center">
                 Your first time?{' '}
                 <span>
                   <a href="signup" className="text-indigo-400 italic hover:text-indigo-600">
@@ -89,7 +94,6 @@ const Login: NextPageWithLayout = () => {
                         if (value.replace(/[A-Za-z0-9]/g, '').length !== 1) {
                           return Promise.reject(new Error('Include exactly one special character'));
                         }
-
                         return Promise.resolve();
                       },
                     }),
@@ -114,8 +118,6 @@ const Login: NextPageWithLayout = () => {
                         return Promise.reject(
                           new Error('To proceed, you should agree to the terms and conditions'),
                         );
-
-                        return Promise.resolve();
                       },
                     }),
                   ]}>
@@ -123,7 +125,7 @@ const Login: NextPageWithLayout = () => {
                     <Checkbox className="text-base">
                       I agree to the{' '}
                       <a className="text-indigo-400 hover:text-indigo-600" href="#">
-                        Terms&Conditions
+                        Terms & Conditions
                       </a>
                     </Checkbox>
                   </Flex>
