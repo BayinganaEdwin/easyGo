@@ -56,7 +56,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
               <Typography variant="header" className="text-white text-center">
                 Login
               </Typography>
-              <Typography variant="subTitle" className="text-gray-400 text-center">
+              <Typography variant="subTitle" className="text-white text-center">
                 Your first time?{' '}
                 <span>
                   <a href="signup" className="text-indigo-400 italic hover:text-indigo-600">
