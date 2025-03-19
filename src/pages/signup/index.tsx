@@ -29,30 +29,31 @@ const Signup: NextPageWithLayout = () => {
       <Head>
         <title>Signup | EasyGo</title>
       </Head>
+      <Flex className="absolute top-4 left-4 z-10">
+        <Image src={EasyGoMini} alt="logo" width={80} height={40} className="object-contain" />
+      </Flex>
       <Flex justify="space-between" className="h-screen bg-[#2c2638] p-2">
         {/* Left Panel */}
-        <Flex vertical justify="space-between" className="w-1/2 rounded-3xl m- overflow-hidden">
+        <Flex
+          vertical
+          justify="space-between"
+          className="hidden md:flex w-1/2 rounded-3xl m- overflow-hidden">
           <Image
             src={EasyGoLogo}
             alt="logo"
             className="object-cover w-full h-full relative opacity-50"
           />
-          <Flex justify="space-between" className=" absolute w-[50%]">
-            <Flex justify="space-between">
-              <Image src={EasyGoMini} alt="logo" className="object-cover w-[15%] py-4 px-1" />
-            </Flex>
-            <Flex className="inline-flex">
-              <a
-                href="#"
-                className="font-medium text-base  text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 ">
-                Back to website<span>-</span>
-              </a>
-            </Flex>
+          <Flex justify="flex-end" className="absolute w-[50%]">
+            <a
+              href="#"
+              className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400">
+              Back to website<span>-</span>
+            </a>
           </Flex>
         </Flex>
 
         {/* Right-panel */}
-        <Flex className="w-1/2 ">
+        <Flex className="w-full md:w-1/2 items-center">
           <Flex
             justify="center"
             className="m-8 p-4 shadow-inner hover:shadow-lg rounded-3xl w-full">
