@@ -20,7 +20,6 @@ const UserProfile: NextPage & { getLayout?: (page: ReactElement) => ReactElement
   };
 
   const handleLogout = () => {
-    // Perform logout logic here (e.g., clear auth tokens, redirect to login page)
     console.log("User logged out");
     router.push("/login");
   };
