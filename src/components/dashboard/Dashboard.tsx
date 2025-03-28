@@ -13,7 +13,7 @@ import Button from '@components/shared/button';
 import { RxCross2 } from 'react-icons/rx';
 import PriceSelector from '@components/shared/input/PriceSelector';
 
-const HomeComponent = () => {
+const DashboardComponent = () => {
   const inputIconSize = 20;
   const tripClasses = ['All', 'Business', 'Economy', 'Private'];
   const busScedules = [
@@ -48,6 +48,7 @@ const HomeComponent = () => {
       imageUrl: 'https://www.mhrinstitute.org/wp-content/uploads/2019/03/Royal-Express.png',
     },
   ];
+
   return (
     <Flex gap={30} className="flex-col w-full text-black">
       <Flex justify="space-between" className="">
@@ -245,4 +246,4 @@ const HomeComponent = () => {
   );
 };
 
-export default HomeComponent;
+export default DashboardComponent;

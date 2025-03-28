@@ -6,6 +6,7 @@ import { VscHistory } from 'react-icons/vsc';
 import { PiChatsCircle, PiHouse } from 'react-icons/pi';
 import { BsTicketPerforated } from 'react-icons/bs';
 import { ISidebarOption, SIDEBAR_LABEL_ENUMS } from '@utils/types/global';
+import { useRouter } from 'next/router';
 
 type SidebarIconProps = {
   item: ISidebarOption;
@@ -75,6 +76,7 @@ const Sidebar = ({
 }: {
   onOptionSelect: Dispatch<SetStateAction<ISidebarOption | undefined>>;
 }) => {
+  const router = useRouter();
   const [selectedOption, setSelectedOption] = useState<ISidebarOption>(sidebarOptions[0]);
 
   const handleOptionClick = (item: ISidebarOption) => {
@@ -83,10 +85,14 @@ const Sidebar = ({
   };
   const settingsOption = sidebarOptions[sidebarOptions.length - 1];
 
+  const handleLogoClick = () => {
+    router.replace('/');
+  };
+
   return (
     <Flex justify="space-between" className="hidden lg:flex flex-col pl-2 my-8 w-[15%]">
       <Flex justify="space-between" className="flex-col pl-2">
-        <Typography variant="title" className="pl-3">
+        <Typography variant="title" className="pl-3 cursor-pointer" onClick={handleLogoClick}>
           easyGo.
         </Typography>
 

@@ -7,6 +7,7 @@ interface CustomTypographyProps {
   color?: 'primary' | 'secondary' | 'error' | 'default';
   className?: string;
   children?: ReactNode;
+  onClick?: () => void;
 }
 
 const variantClasses: Record<string, string> = {

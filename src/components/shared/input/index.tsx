@@ -38,7 +38,7 @@ const Input: FC<CustomInputProps> = ({
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const classes = classNames(
-    'rounded-lg bg-[#3C364C] custom-input-text custom-placeholder-color text-white',
+    'rounded-lg bg-[#3C364C] custom-input-text custom-placeholder-color text-black',
     typeClasses[type],
     sizeClasses[size],
     className,
@@ -60,7 +60,7 @@ const Input: FC<CustomInputProps> = ({
     case 'password':
       return (
         <AntdInput.Password
-          className={`${classes} custom-password-icon custom-input-pasword-text`}
+          className={`${classes} custom-password-icon custom-input-pasword-text text-black`}
           iconRender={(visible) => (visible ? <LuEye /> : <LuEyeOff />)}
           visibilityToggle={{
             visible: passwordVisible,
@@ -76,7 +76,7 @@ const Input: FC<CustomInputProps> = ({
     default:
       return (
         <AntdInput
-          className={classes}
+          className={`${classes} text-black`}
           prefix={prefixWithSpacing}
           addonAfter={addonAfter}
           variant={variant}

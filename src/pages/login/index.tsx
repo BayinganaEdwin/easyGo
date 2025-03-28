@@ -18,27 +18,27 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
       <Head>
         <title>Login | EasyGo</title>
       </Head>
-      <Flex justify="space-between" className="h-screen bg-[#2c2638] p-2">
-        <Flex vertical justify="space-between" className="w-1/2 rounded-3xl m- overflow-hidden">
-          <Image
-            src={EasyBus}
-            alt="logo"
-            className="object-cover w-full h-full relative opacity-50"
-          />
-          <Flex justify="space-between" className=" absolute w-[50%]">
-            <Flex justify="space-between">
+      <Flex justify="center" className="h-screen bg-[#2c2638] p-2 flex-col md:flex-row">
+        <Flex
+          vertical
+          justify="space-between"
+          className="hidden md:flex md:w-1/2 rounded-3xl overflow-hidden relative">
+          <Image src={EasyBus} alt="logo" className="object-cover w-full h-full opacity-50" />
+          <Flex justify="space-between" className="absolute w-full">
+            <Flex>
               <Image src={EasyLogo} alt="logo" className="object-cover w-[15%] py-4 px-1" />
             </Flex>
-            <Flex className="inline-flex">
+            <Flex>
               <a
-                href="#"
-                className="font-medium text-base  text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 ">
+                href="/"
+                className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400">
                 Back to website<span>-</span>
               </a>
             </Flex>
           </Flex>
         </Flex>
-        <Flex className="w-1/2 items-center">
+
+        <Flex className="w-full md:w-1/2 items-center justify-center">
           <Flex
             justify="center"
             className="m-8 p-4 shadow-inner hover:shadow-lg rounded-3xl w-full">
@@ -73,6 +73,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                   rules={[
                     { required: true },
                     { min: 8, message: 'Password must be at least 8 characters long' },
+                    // eslint-disable-next-line no-empty-pattern
                     ({}) => ({
                       validator(_, value) {
                         if (!/[A-Z]/.test(value)) {
@@ -101,6 +102,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                   name="checkbox"
                   valuePropName="checked"
                   rules={[
+                    // eslint-disable-next-line no-empty-pattern
                     ({}) => ({
                       validator(_, value) {
                         if (value) {

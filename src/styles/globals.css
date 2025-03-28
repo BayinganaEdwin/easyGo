@@ -50,7 +50,7 @@ body {
   font-size: smaller;
 }
 .custom-header-input-text-size .ant-input {
-  @apply text-white;
+  @apply text-black;
   font-size: smaller;
 }
 .custom-header-input-text-size-2 .ant-input {
