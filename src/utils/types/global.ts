@@ -1,5 +1,5 @@
-import { Product } from "./product";
-import { UserSchema } from "./user";
+import { Product } from './product';
+import { UserSchema } from './user';
 
 export type IPagination = {
   current: number;
@@ -20,12 +20,6 @@ export type GenericResponse<T> = {
     };
   };
 };
-
-export enum IMinuteTypeEnum {
-  DAILY = "DAILY",
-  WEEKLY = "WEEKLY",
-  MONTHLY = "MONTHLY",
-}
 
 export type Review = {
   id: string;
@@ -65,4 +59,15 @@ export interface Params {
   createdFromDate?: string;
   createdToDate?: string;
   numberOfProducts?: string;
+}
+
+export type ISidebarOption = { label: string; icon: React.ReactElement };
+
+export enum SIDEBAR_LABEL_ENUMS {
+  HOME = 'Home',
+  TICKETS = 'Tickets',
+  SCHEDULE = 'Schedule',
+  HISTORY = 'History',
+  SUPPORT = 'Support',
+  SETTINGS = 'Settings',
 }

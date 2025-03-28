@@ -14,7 +14,7 @@ interface CustomButtonProps {
 
 const typeClasses: Record<string, string> = {
   primary:
-    'bg-primary text-secondary border-primary text-xs disabled:bg-neutral-500 disabled:border-none',
+    'bg-primary text-white border-primary text-sm disabled:bg-neutral-500 disabled:border-none',
   secondary: 'bg-primaryBackground text-secondary border-[1.5px] border-borderColor text-xs',
   danger: 'bg-error border-error hover:bg-error-dark text-xs',
 };
