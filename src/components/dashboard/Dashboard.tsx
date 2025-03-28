@@ -53,7 +53,7 @@ const DashboardComponent = () => {
     <Flex gap={30} className="flex-col w-full text-black">
       <Flex justify="space-between" className="">
         <Flex className="rounded-2xl p-2">
-          <Typography variant="title">Home</Typography>
+          <Typography variant="title">Analytics</Typography>
         </Flex>
 
         <Flex gap={10} align="center" className="rounded-2xl">

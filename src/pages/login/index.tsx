@@ -11,8 +11,13 @@ import { Form, Button, Checkbox } from 'antd';
 import Image from 'next/image';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
+import { useRouter } from 'next/router';
 
 const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
+  const router = useRouter();
+  const handleBackToWebsiteClick = () => {
+    router.push('/');
+  };
   return (
     <Fragment>
       <Head>
@@ -29,11 +34,11 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
               <Image src={EasyLogo} alt="logo" className="object-cover w-[15%] py-4 px-1" />
             </Flex>
             <Flex>
-              <a
-                href="/"
-                className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400">
+              <Typography
+                className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 cursor-pointer"
+                onClick={handleBackToWebsiteClick}>
                 Back to website<span>-</span>
-              </a>
+              </Typography>
             </Flex>
           </Flex>
         </Flex>
@@ -46,7 +51,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
               <Typography variant="header" className="text-white">
                 Login
               </Typography>
-              <Typography variant="subTitle" className="text-gray-400">
+              <Typography variant="subTitle" className="text-white">
                 Your first time?{' '}
                 <span>
                   <a href="signup" className="text-indigo-400 italic hover:text-indigo-600">

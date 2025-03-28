@@ -11,12 +11,17 @@ import Image from 'next/image';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
 import { FiUser } from 'react-icons/fi';
+import { useRouter } from 'next/router';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
 };
 
 const Signup: NextPageWithLayout = () => {
+  const router = useRouter();
+  const handleBackToWebsiteClick = () => {
+    router.push('/');
+  };
   return (
     <Fragment>
       <Head>
@@ -37,11 +42,11 @@ const Signup: NextPageWithLayout = () => {
             className="object-cover w-full h-full relative opacity-50"
           />
           <Flex justify="flex-end" className="absolute w-[50%]">
-            <a
-              href="/"
-              className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400">
+            <Typography
+              className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 cursor-pointer"
+              onClick={handleBackToWebsiteClick}>
               Back to website<span>-</span>
-            </a>
+            </Typography>
           </Flex>
         </Flex>
 
