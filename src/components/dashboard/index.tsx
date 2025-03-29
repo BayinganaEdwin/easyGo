@@ -18,7 +18,7 @@ const DashboardContent: React.FC = () => {
       <Sidebar onOptionSelect={setSelectedSidebarOption} />
 
       <Flex className="text-black bg-secondaryBackground w-full lg:w-[85%] m-2 lg:m-5 p-3 rounded-2xl overflow-y-auto scrollbar-hide">
-        {selectedSidebarOption?.label == SIDEBAR_LABEL_ENUMS.HOME && <DashboardComponent />}
+        {selectedSidebarOption?.label == SIDEBAR_LABEL_ENUMS.ANALYTICS && <DashboardComponent />}
         {selectedSidebarOption?.label === SIDEBAR_LABEL_ENUMS.TICKETS && <TicketsComponent />}
         {selectedSidebarOption?.label === SIDEBAR_LABEL_ENUMS.SCHEDULE && <ScheduleComponent />}
         {selectedSidebarOption?.label === SIDEBAR_LABEL_ENUMS.HISTORY && <HistoryComponent />}
