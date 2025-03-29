@@ -64,7 +64,7 @@ export interface Params {
 export type ISidebarOption = { label: string; icon: React.ReactElement };
 
 export enum SIDEBAR_LABEL_ENUMS {
-  HOME = 'Home',
+  ANALYTICS = 'Analytics',
   TICKETS = 'Tickets',
   SCHEDULE = 'Schedule',
   HISTORY = 'History',

@@ -46,7 +46,7 @@ const iconSize: number = 20;
 
 export const sidebarOptions = [
   {
-    label: SIDEBAR_LABEL_ENUMS.HOME,
+    label: SIDEBAR_LABEL_ENUMS.ANALYTICS,
     icon: <PiHouse size={iconSize} />,
   },
   {
