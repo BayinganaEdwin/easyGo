@@ -6,6 +6,7 @@ import { LuBus } from 'react-icons/lu';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { IoLocation } from 'react-icons/io5';
 import Button from '../button';
+import { useRouter } from 'next/router';
 
 export type ITicketType = {
   from: string;
@@ -19,6 +20,10 @@ export type ITicketType = {
 };
 
 const TicketCard = ({ ticket }: { ticket: ITicketType }) => {
+  const router = useRouter();
+  const handleBuyTicket = () => {
+    router.push('/tickets/payment'); // Redirects to the payment page
+  };
   return (
     <Flex vertical gap={10} className="w-full bg-primaryBackground/50 p-5 rounded-2xl">
       <Flex gap={10} align="center">
@@ -69,7 +74,7 @@ const TicketCard = ({ ticket }: { ticket: ITicketType }) => {
         </Flex>
 
         <Flex vertical>
-          <Button>Buy Ticket</Button>
+          <Button onClick={handleBuyTicket}>Buy Ticket</Button>
         </Flex>
       </Flex>
     </Flex>
