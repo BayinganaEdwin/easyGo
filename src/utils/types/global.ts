@@ -21,12 +21,6 @@ export type GenericResponse<T> = {
   };
 };
 
-export enum IMinuteTypeEnum {
-  DAILY = 'DAILY',
-  WEEKLY = 'WEEKLY',
-  MONTHLY = 'MONTHLY',
-}
-
 export type Review = {
   id: string;
   rating: number;
@@ -65,4 +59,15 @@ export interface Params {
   createdFromDate?: string;
   createdToDate?: string;
   numberOfProducts?: string;
+}
+
+export type ISidebarOption = { label: string; icon: React.ReactElement };
+
+export enum SIDEBAR_LABEL_ENUMS {
+  ANALYTICS = 'Analytics',
+  TICKETS = 'Tickets',
+  SCHEDULE = 'Schedule',
+  HISTORY = 'History',
+  SUPPORT = 'Support',
+  SETTINGS = 'Settings',
 }
