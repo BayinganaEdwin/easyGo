@@ -1,5 +1,5 @@
-import { Product } from "./product";
-import { UserSchema } from "./user";
+import { Product } from './product';
+import { UserSchema } from './user';
 
 export type IPagination = {
   current: number;
@@ -22,9 +22,9 @@ export type GenericResponse<T> = {
 };
 
 export enum IMinuteTypeEnum {
-  DAILY = "DAILY",
-  WEEKLY = "WEEKLY",
-  MONTHLY = "MONTHLY",
+  DAILY = 'DAILY',
+  WEEKLY = 'WEEKLY',
+  MONTHLY = 'MONTHLY',
 }
 
 export type Review = {

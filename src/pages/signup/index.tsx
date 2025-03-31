@@ -4,20 +4,14 @@ import { NextPage } from 'next';
 import AuthLayout from '@layouts/auth';
 import { Flex } from 'antd';
 import Typography from '@components/shared/typography';
-// import { PrimaryLogo } from '@utils/images';
 import { EasyGoLogo } from '@utils/images';
 import { EasyGoMini } from '@utils/images';
-// import { FC, useState } from 'react';
-// import { Input as AntdInput, InputProps as AntdInputProps } from 'antd';
-// import classNames from 'classnames';
-// import { LuEye, LuEyeOff } from 'react-icons/lu';
 import Input from '@components/shared/input';
 import { Form, Button, Checkbox } from 'antd';
 import Image from 'next/image';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
 import { FiUser } from 'react-icons/fi';
-// import { log } from 'console';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
@@ -52,7 +46,6 @@ const Signup: NextPageWithLayout = () => {
           </Flex>
         </Flex>
 
-        {/* Right-panel */}
         <Flex className="w-full md:w-1/2 items-center">
           <Flex
             justify="center"
@@ -69,12 +62,7 @@ const Signup: NextPageWithLayout = () => {
                   </a>
                 </span>
               </Typography>
-              <Form
-                autoComplete="off"
-                // onFinish={(values) => {
-                //   log({ values });
-                // }}
-              >
+              <Form autoComplete="off">
                 <Flex className="gap-4">
                   <Form.Item
                     name={'firstName'}
@@ -123,8 +111,7 @@ const Signup: NextPageWithLayout = () => {
                   rules={[
                     { required: true },
                     { min: 8, message: 'Password must be at least 8 characters long' },
-                    // eslint-disable-next-line no-empty-pattern
-                    ({}) => ({
+                    {
                       validator(_, value) {
                         if (!/[A-Z]/.test(value)) {
                           return Promise.reject(new Error('Include at least one uppercase letter'));
@@ -135,10 +122,9 @@ const Signup: NextPageWithLayout = () => {
                         if (value.replace(/[A-Za-z0-9]/g, '').length !== 1) {
                           return Promise.reject(new Error('Include exactly one special character'));
                         }
-
                         return Promise.resolve();
                       },
-                    }),
+                    },
                   ]}
                   hasFeedback>
                   <Input
@@ -176,8 +162,7 @@ const Signup: NextPageWithLayout = () => {
                   name="checkbox"
                   valuePropName="checked"
                   rules={[
-                    // eslint-disable-next-line no-empty-pattern
-                    ({}) => ({
+                    {
                       validator(_, value) {
                         if (value) {
                           return Promise.resolve();
@@ -185,10 +170,9 @@ const Signup: NextPageWithLayout = () => {
                         return Promise.reject(
                           new Error('To proceed, you should agree to the terms and conditions'),
                         );
-
                         return Promise.resolve();
                       },
-                    }),
+                    },
                   ]}>
                   <Flex gap={4}>
                     <Checkbox className="text-base">
