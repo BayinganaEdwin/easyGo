@@ -3,7 +3,7 @@ import { Fragment, ReactElement, useState } from 'react';
 import { NextPage } from 'next';
 import AuthLayout from '@layouts/auth';
 import Typography from '@components/shared/typography';
-import { Flex, Button, Input, Checkbox, Divider } from 'antd';
+import { Flex, Button, Input, Checkbox, Divider, Modal, Form, message } from 'antd';
 import { HiArrowLeft, HiOutlineLogout, HiTicket, HiHome } from 'react-icons/hi';
 import { FiEdit, FiCheck } from 'react-icons/fi';
 import { BsShieldLock, BsGear } from 'react-icons/bs';
@@ -17,14 +17,64 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
   const [activeSection, setActiveSection] = useState<'account' | 'security' | 'preferences' | 'tickets'>('account');
   const [confirmDelete, setConfirmDelete] = useState(false);
   const router = useRouter();
+  
+  // States for change password functionality
+  const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
 
   const handleLogout = () => {
+    // Clear any auth tokens/cookies if needed
+    // localStorage.removeItem('authToken');
     console.log("User logged out");
     router.push("/login");
+  };
+  
+  const showChangePasswordModal = () => {
+    setIsChangePasswordVisible(true);
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPasswordError("");
+  };
+  
+  const handleChangePasswordCancel = () => {
+    setIsChangePasswordVisible(false);
+  };
+  
+  const handleChangePassword = () => {
+    // Basic validation
+    if (!currentPassword) {
+      setPasswordError("Current password is required");
+      return;
+    }
+    
+    if (!newPassword) {
+      setPasswordError("New password is required");
+      return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+      setPasswordError("Passwords don't match");
+      return;
+    }
+    
+    if (newPassword.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+      return;
+    }
+    
+    // Here you would call your API to change the password
+    // For demonstration, we'll just show a success message
+    
+    message.success("Password changed successfully");
+    setIsChangePasswordVisible(false);
   };
 
   return (
@@ -34,7 +84,7 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
       </Head>
       
       <Flex className="min-h-screen bg-gray-50 text-gray-800">
-        {/* Header */}
+       
         <Flex className="fixed top-0 left-0 right-0 h-16 bg-white px-6 items-center z-20 border-b border-gray-200 shadow-sm">
           <Button 
             icon={<HiHome size={20} />} 
@@ -47,9 +97,9 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
           </Typography>
         </Flex>
 
-        {/* Main Content */}
+       
         <Flex className="w-full pt-16">
-          {/* Sidebar */}
+          
           <Flex className="w-64 bg-white min-h-screen flex-col pt-8 fixed left-0 border-r border-gray-200">
             <Typography variant="header" className="text-gray-800 font-bold text-2xl px-6 mb-8">
               User Settings
@@ -86,7 +136,7 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
             </Flex>
           </Flex>
 
-          {/* Main Content Area */}
+          
           <Flex className="ml-64 p-8 flex-col flex-1">
             {activeSection === 'account' && (
               <Flex className="flex-col w-full max-w-3xl">
@@ -108,7 +158,7 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
                       </Button>
                       <Button 
                         className="bg-red-500 hover:bg-red-600 text-white rounded-md"
-                        disabled={!confirmDelete}
+                        onClick={handleLogout}
                       >
                         Log Out
                       </Button>
@@ -174,7 +224,10 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
                     Password
                   </Typography>
                   
-                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white w-40 rounded-md">
+                  <Button 
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white w-40 rounded-md"
+                    onClick={showChangePasswordModal}
+                  >
                     Change Password
                   </Button>
                 </Flex>
@@ -210,6 +263,56 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
           </Flex>
         </Flex>
       </Flex>
+      
+      {/* Change Password Modal */}
+      <Modal
+        title="Change Password"
+        open={isChangePasswordVisible}
+        onCancel={handleChangePasswordCancel}
+        footer={[
+          <Button key="cancel" onClick={handleChangePasswordCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleChangePassword}>
+            Change Password
+          </Button>,
+        ]}
+      >
+        <Flex className="flex-col gap-4 mt-4">
+          {passwordError && (
+            <div className="bg-red-100 text-red-700 p-2 rounded mb-2">
+              {passwordError}
+            </div>
+          )}
+          
+          <Flex className="flex-col">
+            <Typography className="text-gray-600 mb-1">Current Password</Typography>
+            <Input.Password
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder="Enter your current password"
+            />
+          </Flex>
+          
+          <Flex className="flex-col">
+            <Typography className="text-gray-600 mb-1">New Password</Typography>
+            <Input.Password
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter your new password"
+            />
+          </Flex>
+          
+          <Flex className="flex-col">
+            <Typography className="text-gray-600 mb-1">Confirm New Password</Typography>
+            <Input.Password
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your new password"
+            />
+          </Flex>
+        </Flex>
+      </Modal>
     </Fragment>
   );
 };
