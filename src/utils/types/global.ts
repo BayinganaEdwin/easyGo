@@ -65,7 +65,7 @@ export type ISidebarOption = { label: string; icon: React.ReactElement };
 
 export enum SIDEBAR_LABEL_ENUMS {
   ANALYTICS = 'Analytics',
-  TICKETS = 'Tickets',
+  TRIPS = 'Trips',
   SCHEDULE = 'Schedule',
   HISTORY = 'History',
   SUPPORT = 'Support',

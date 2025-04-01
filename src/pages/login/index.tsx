@@ -12,11 +12,33 @@ import Image from 'next/image';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
 import { useRouter } from 'next/router';
+import { useLoginMutation } from '@store/actions/auth';
+import { TOKEN_NAME, USER_DATA } from '@utils/constants';
 
 const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
   const router = useRouter();
+  const [login, { isLoading }] = useLoginMutation();
+
   const handleBackToWebsiteClick = () => {
     router.push('/');
+  };
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const { email, password } = data;
+    const payload = { email, password };
+
+    try {
+      const res = await login(payload).unwrap();
+      if (res?.data) {
+        const { user, token } = res.data;
+
+        localStorage.setItem(TOKEN_NAME, token);
+        localStorage.setItem(USER_DATA, JSON.stringify(user));
+
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   };
   return (
     <Fragment>
@@ -59,9 +81,9 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                   </a>
                 </span>
               </Typography>
-              <Form autoComplete="off">
+              <Form autoComplete="off" onFinish={onSubmit}>
                 <Form.Item
-                  name={'Email'}
+                  name="email"
                   rules={[
                     { required: true, message: 'Please enter a valid email' },
                     { type: 'email', message: 'Please enter a valid email' },
@@ -70,11 +92,11 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                   <Input
                     addonBefore={<CgMail className="text-gray-500 mt-1" size={20} />}
                     placeholder="Email"
-                    className="text-black text-base bg-gray-300 rounded-md border-none p-4 w-full"
+                    className="text-black text-base bg-white rounded-md border-none p-4 w-full"
                   />
                 </Form.Item>
                 <Form.Item
-                  name={'Password'}
+                  name="password"
                   rules={[
                     { required: true },
                     { min: 8, message: 'Password must be at least 8 characters long' },
@@ -98,7 +120,7 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                   hasFeedback>
                   <Input
                     inputType="password"
-                    className="text-black text-base bg-gray-300"
+                    className="text-black text-base bg-white"
                     addonBefore={<HiOutlineLockClosed className="text-gray-500" size={20} />}
                     placeholder="Enter your password"
                   />
@@ -135,8 +157,10 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
                     <Button
                       type="primary"
                       htmlType="submit"
+                      loading={isLoading}
+                      disabled={isLoading}
                       className="w-full text-lg font-semibold p-6 bg-indigo-400 hover:bg-indigo-500">
-                      Create account
+                      Login
                     </Button>
                   </Flex>
                 </Form.Item>

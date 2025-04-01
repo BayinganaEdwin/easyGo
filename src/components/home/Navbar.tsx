@@ -1,22 +1,67 @@
 import Typography from '@components/shared/typography';
-import { Flex } from 'antd';
+import { TOKEN_NAME, USER_DATA } from '@utils/constants';
+import { Flex, Menu, Popover } from 'antd';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { FiBell } from 'react-icons/fi';
 
 const LoggedInUserLogo = () => {
   const router = useRouter();
-  const handleDashboardNavigation = () => {
-    router.push('/dashboard');
+  const [open, setOpen] = useState(false);
+
+  const userData = typeof window !== 'undefined' ? localStorage.getItem(USER_DATA) : null;
+  const user = userData ? JSON.parse(userData) : null;
+
+  const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : 'U';
+
+  const handleNavigation = (path: string) => {
+    setOpen(false);
+    router.push(path);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem(USER_DATA);
+    localStorage.removeItem(TOKEN_NAME);
+    setOpen(false);
+    router.push('/login');
+  };
+
+  const menuContent = (
+    <Menu className="w-40 bg-transparent border-none">
+      <Typography
+        onClick={() => handleNavigation('/dashboard')}
+        className="py-2 px-4 cursor-pointer hover:bg-secondaryBackground rounded-xl">
+        Dashboard
+      </Typography>
+      <Typography
+        onClick={() => handleNavigation('/dashboard')}
+        className="py-2 px-4 cursor-pointer hover:bg-secondaryBackground rounded-xl">
+        Profile
+      </Typography>
+      <Typography
+        onClick={handleLogout}
+        className="text-red-500 py-2 px-4 cursor-pointer hover:bg-red-100 rounded-xl">
+        Logout
+      </Typography>
+    </Menu>
+  );
+
   return (
-    <Flex
-      align="center"
-      justify="center"
-      className="bg-primary w-8 h-8 rounded-full"
-      onClick={handleDashboardNavigation}>
-      <Typography className="text-white">E</Typography>
-    </Flex>
+    <Popover
+      content={menuContent}
+      trigger="click"
+      open={open}
+      onOpenChange={setOpen}
+      placement="topRight"
+      overlayInnerStyle={{
+        backgroundColor: 'white',
+        padding: 0,
+        border: '0.5px solid #ffffff70',
+      }}>
+      <Flex align="center" justify="center" className="bg-primary w-8 h-8 rounded-full">
+        <Typography className="text-white">{userInitial}</Typography>
+      </Flex>
+    </Popover>
   );
 };
 

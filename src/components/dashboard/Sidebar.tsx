@@ -50,7 +50,7 @@ export const sidebarOptions = [
     icon: <PiHouse size={iconSize} />,
   },
   {
-    label: SIDEBAR_LABEL_ENUMS.TICKETS,
+    label: SIDEBAR_LABEL_ENUMS.TRIPS,
     icon: <BsTicketPerforated size={iconSize} />,
   },
   {

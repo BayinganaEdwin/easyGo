@@ -12,6 +12,8 @@ import { HiOutlineLockClosed } from 'react-icons/hi';
 import { CgMail } from 'react-icons/cg';
 import { FiUser } from 'react-icons/fi';
 import { useRouter } from 'next/router';
+import { useSignupMutation } from '@store/actions/auth';
+import { TOKEN_NAME, USER_DATA } from '@utils/constants';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
@@ -19,8 +21,36 @@ type NextPageWithLayout = NextPage & {
 
 const Signup: NextPageWithLayout = () => {
   const router = useRouter();
+  const [signup, { isLoading }] = useSignupMutation();
   const handleBackToWebsiteClick = () => {
     router.push('/');
+  };
+  const onSubmit = async (data: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }) => {
+    const { firstName, lastName, email, password } = data;
+    const payload = {
+      name: `${firstName} ${lastName}`,
+      email,
+      password,
+    };
+
+    try {
+      const res = await signup(payload).unwrap();
+      if (res?.data) {
+        const { user, token } = res.data;
+
+        localStorage.setItem(TOKEN_NAME, token);
+        localStorage.setItem(USER_DATA, JSON.stringify(user));
+
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   };
   return (
     <Fragment>
@@ -67,12 +97,7 @@ const Signup: NextPageWithLayout = () => {
                   </a>
                 </span>
               </Typography>
-              <Form
-                autoComplete="off"
-                // onFinish={(values) => {
-                //   log({ values });
-                // }}
-              >
+              <Form autoComplete="off" onFinish={onSubmit}>
                 <Flex className="gap-4">
                   <Form.Item
                     name={'firstName'}
@@ -85,7 +110,7 @@ const Signup: NextPageWithLayout = () => {
                     <Input
                       addonBefore={<FiUser size={20} className="text-gray-500" />}
                       placeholder="First Name"
-                      className="text-black text-base bg-gray-300 rounded-md border-none p-4"
+                      className="text-black text-base bg-white rounded-md border-none p-4"
                     />
                   </Form.Item>
                   <Form.Item
@@ -99,12 +124,12 @@ const Signup: NextPageWithLayout = () => {
                     <Input
                       addonBefore={<FiUser size={20} className="text-gray-500" />}
                       placeholder="Last Name"
-                      className="text-black text-base bg-gray-300 rounded-md border-none p-4"
+                      className="text-black text-base bg-white rounded-md border-none p-4"
                     />
                   </Form.Item>
                 </Flex>
                 <Form.Item
-                  name={'Email'}
+                  name={'email'}
                   rules={[
                     { required: true, message: 'Please enter a valid email' },
                     { type: 'email', message: 'Please enter a valid email' },
@@ -113,11 +138,11 @@ const Signup: NextPageWithLayout = () => {
                   <Input
                     addonBefore={<CgMail className="text-gray-500 mt-1" size={20} />}
                     placeholder="Email"
-                    className="text-black text-base bg-gray-300 rounded-md border-none p-4"
+                    className="text-black text-base bg-white rounded-md border-none p-4"
                   />
                 </Form.Item>
                 <Form.Item
-                  name={'Password'}
+                  name={'password'}
                   rules={[
                     { required: true },
                     { min: 8, message: 'Password must be at least 8 characters long' },
@@ -141,19 +166,19 @@ const Signup: NextPageWithLayout = () => {
                   hasFeedback>
                   <Input
                     inputType="password"
-                    className="text-black text-base bg-gray-300"
+                    className="text-black text-base bg-white"
                     addonBefore={<HiOutlineLockClosed className="text-gray-500" size={20} />}
                     placeholder="Enter your password"
                   />
                 </Form.Item>
                 <Form.Item
                   name={'confirmPassword'}
-                  dependencies={['Password']}
+                  dependencies={['password']}
                   rules={[
                     { required: true },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
-                        if (!value || getFieldValue('Password') === value) {
+                        if (!value || getFieldValue('password') === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
@@ -165,7 +190,7 @@ const Signup: NextPageWithLayout = () => {
                   hasFeedback>
                   <Input
                     inputType="password"
-                    className="text-black text-base bg-gray-300"
+                    className="text-black text-base bg-white"
                     addonBefore={<HiOutlineLockClosed className="text-gray-500" size={20} />}
                     placeholder="Confirm your password"
                   />
@@ -183,8 +208,6 @@ const Signup: NextPageWithLayout = () => {
                         return Promise.reject(
                           new Error('To proceed, you should agree to the terms and conditions'),
                         );
-
-                        return Promise.resolve();
                       },
                     }),
                   ]}>
@@ -192,7 +215,7 @@ const Signup: NextPageWithLayout = () => {
                     <Checkbox className="text-base">
                       I agree to the{' '}
                       <a className="text-indigo-400 hover:text-indigo-600" href="#">
-                        Terms&Conditions
+                        Terms & Conditions
                       </a>
                     </Checkbox>
                   </Flex>
@@ -202,6 +225,8 @@ const Signup: NextPageWithLayout = () => {
                     <Button
                       type="primary"
                       htmlType="submit"
+                      loading={isLoading}
+                      disabled={isLoading}
                       className="w-full text-lg font-semibold p-6 bg-indigo-400 hover:bg-indigo-500">
                       Create account
                     </Button>
