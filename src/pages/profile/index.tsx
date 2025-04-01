@@ -165,9 +165,7 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
                     </Flex>
                   </Flex>
                   
-                  <Typography className="text-gray-500 mb-4">
-                    You can temporary pause your account from being viewable, this action can be undone anytime
-                  </Typography>
+                
 
                   <Flex className="flex-col gap-4 mt-2">
                     <Flex className="flex-col">
