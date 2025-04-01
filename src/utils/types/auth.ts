@@ -1,14 +1,16 @@
-import { GenericResponse } from "./global";
+import { GenericResponse } from './global';
 
 export type AuthResponse = GenericResponse<{
-  statusCode?: number;
-  message?: string;
-  data: {
-    accessToken: string;
-    refreshToken: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string | number;
+    avatar: string | null;
+    createdAt: string;
+    updatedAt: string;
   };
-  accessToken?: string;
-  refreshToken?: string;
+  token: string;
 }>;
 
 export type LoginPayload = {
@@ -17,10 +19,7 @@ export type LoginPayload = {
 };
 
 export type SignupPayload = {
+  name: string;
   email: string;
   password: string;
-  confirmPassword?: string;
-  firstName: string;
-  lastName: boolean;
-  phoneNumber: number | string;
 };

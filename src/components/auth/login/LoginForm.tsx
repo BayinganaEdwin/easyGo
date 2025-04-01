@@ -1,62 +1,27 @@
 import React from 'react';
-import { Flex, Form, notification, Spin } from 'antd';
+import { Flex, Form } from 'antd';
 import Input from '@components/shared/input';
 import Button from '@components/shared/button';
-import { BiLogInCircle } from 'react-icons/bi';
 import { CgMail } from 'react-icons/cg';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import Typography from '@components/shared/typography';
 import routes from '@utils/routes';
 import useRedirection from '@utils/hooks/useRedirection';
 import { useForm, Controller } from 'react-hook-form';
-import { useLoginMutation } from '@store/actions/auth';
-import { LoadingOutlined } from '@ant-design/icons';
-import Cookies from 'js-cookie';
-import { TOKEN_NAME } from '@utils/constants';
-import { setToken } from '@store/reducers/app';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 
 const LoginForm: React.FC = () => {
   const { redirectTo } = useRedirection();
-  const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   const {
     control,
-    handleSubmit,
     formState: { errors },
   } = useForm<{ email: string; password: string }>();
-
-  const onSubmit = async (data: { email: string; password: string }) => {
-    await login(data).then((res) => {
-      if (!res?.error && res?.data?.data?.accessToken) {
-        Cookies.set(TOKEN_NAME, res?.data?.data?.accessToken, {
-          expires: 7,
-        });
-
-        dispatch(setToken(res?.data?.data?.accessToken));
-
-        const redirectToString = router.query.redirectTo;
-        if (redirectToString) {
-          router.replace(redirectToString as string);
-        } else {
-          router.replace(routes.home.url);
-        }
-
-        notification.success({
-          message: 'Login successful!',
-        });
-      }
-    });
-  };
 
   const formLabelClassName = 'text-[9.5px] text-secondary mb-0.5 font-semibold';
   const inputIconSize = 17;
 
   return (
-    <Form layout="vertical" onFinish={handleSubmit(onSubmit)} className="h-full">
+    <Form layout="vertical" className="h-full">
       <Flex vertical justify="space-between" className="h-full gap-4">
         <Typography variant="subTitle" className="self-center md:self-auto">
           Login
@@ -83,6 +48,7 @@ const LoginForm: React.FC = () => {
                   {...field}
                   addonBefore={<CgMail className="text-primary" size={inputIconSize} />}
                   placeholder="Enter email"
+                  className="bg-white"
                 />
               )}
             />
@@ -109,6 +75,7 @@ const LoginForm: React.FC = () => {
                     <HiOutlineLockClosed className="text-primary" size={inputIconSize} />
                   }
                   placeholder="Enter password"
+                  className="bg-white"
                 />
               )}
             />
@@ -126,15 +93,8 @@ const LoginForm: React.FC = () => {
           </button>
 
           <Form.Item className="md:my-auto flex-end">
-            <Button type="primary" htmlType="submit" className="w-full" disabled={isLoading}>
+            <Button type="primary" htmlType="submit" className="w-full">
               Login
-              {isLoading ? (
-                <Spin
-                  spinning={isLoading}
-                  indicator={<LoadingOutlined spin className="text-secondary" />}></Spin>
-              ) : (
-                <BiLogInCircle className="text-secondary" size={15} />
-              )}
             </Button>
           </Form.Item>
 
