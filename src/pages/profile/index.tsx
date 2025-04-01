@@ -3,9 +3,10 @@ import { Fragment, ReactElement, useState } from 'react';
 import { NextPage } from 'next';
 import AuthLayout from '@layouts/auth';
 import Typography from '@components/shared/typography';
-import { Flex, Button, Input } from 'antd';
-import { HiArrowLeft, HiOutlineLogout, HiTicket } from 'react-icons/hi';
+import { Flex, Button, Input, Checkbox, Divider } from 'antd';
+import { HiArrowLeft, HiOutlineLogout, HiTicket, HiHome } from 'react-icons/hi';
 import { FiEdit, FiCheck } from 'react-icons/fi';
+import { BsShieldLock, BsGear } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 
 const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
@@ -13,7 +14,8 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
   const [username, setUsername] = useState("@divine");
   const [email, setEmail] = useState("birasadivinelaura2@gmail.com");
   const [phone, setPhone] = useState("+250 123 456 789");
-  const [activeTab, setActiveTab] = useState<'profile' | 'tickets'>('profile');
+  const [activeSection, setActiveSection] = useState<'account' | 'security' | 'preferences' | 'tickets'>('account');
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const router = useRouter();
 
   const handleEditClick = () => {
@@ -31,93 +33,181 @@ const SettingsPage: NextPage & { getLayout?: (page: ReactElement) => ReactElemen
         <title>Settings | EasyGo</title>
       </Head>
       
-      <Flex className="h-16 bg-white px-6 items-center shadow-md sticky top-0 z-10">
-        <Button icon={<HiArrowLeft size={24} />} className="bg-transparent border-none" />
-        <Typography variant="header" className="text-gray-900 text-lg font-semibold ml-4">
-          Settings
-        </Typography>
-      </Flex>
+      <Flex className="min-h-screen bg-gray-50 text-gray-800">
+        {/* Header */}
+        <Flex className="fixed top-0 left-0 right-0 h-16 bg-white px-6 items-center z-20 border-b border-gray-200 shadow-sm">
+          <Button 
+            icon={<HiHome size={20} />} 
+            className="bg-transparent border-none text-gray-600 hover:text-gray-900"
+            onClick={() => router.push('/')}
+          />
+          <Typography className="text-gray-500 text-sm mx-2">/</Typography>
+          <Typography className="text-gray-800 text-lg font-medium">
+            Settings
+          </Typography>
+        </Flex>
 
-      <Flex className="min-h-screen bg-[#f5f5f5] p-4 flex-col">
-        <Flex className="w-full bg-white p-6 rounded-xl shadow-lg mt-2 flex-col">
-        
-          <Flex className="w-full  mb-6 gap-4">
-             <Flex onClick={() => setActiveTab('profile')}>
-          <Typography 
-              className={`px-6 py-2  text-lg font-semibold ${activeTab === 'profile' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-600'}`}>
-              Profile 
+        {/* Main Content */}
+        <Flex className="w-full pt-16">
+          {/* Sidebar */}
+          <Flex className="w-64 bg-white min-h-screen flex-col pt-8 fixed left-0 border-r border-gray-200">
+            <Typography variant="header" className="text-gray-800 font-bold text-2xl px-6 mb-8">
+              User Settings
             </Typography>
-          </Flex>
-               <Flex onClick={() => setActiveTab('tickets')}>
-               <Typography 
-              className={`px-6 py-2  text-lg font-semibold ${activeTab === 'tickets' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-600'}`} 
-              >
-              My Tickets
-            </Typography>
-               </Flex>
-          </Flex>
-          
-          
-          {activeTab === 'profile' && (
-            <Flex className="w-full flex-col gap-8">
-              <Typography variant="header" className="text-indigo-500 font-bold text-2xl mb-6">
-                Profile
-              </Typography>
-              {isEditing ? (
-                <Input value={username} onChange={(e) => setUsername(e.target.value)} className="mb-4 text-left text-2xl font-bold w-full" />
-              ) : (
-                <Typography variant="header" className="text-gray-900 text-3xl font-bold mb-4">
-                  {username}
-                </Typography>
-              )}
-              {isEditing ? (
-                <Input value={email} onChange={(e) => setEmail(e.target.value)} className="mb-4 text-left text-xl w-full" />
-              ) : (
-                <Typography variant="subTitle" className="text-gray-500 text-xl mb-3">
-                  {email}
-                </Typography>
-              )}
-              {isEditing ? (
-                <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="mb-6 text-left text-xl w-full" />
-              ) : (
-                <Typography className="text-gray-600 text-lg mb-6">
-                  {phone}
-                </Typography>
-              )}
-              <Flex className="mt-2 gap-4">
-                <Button 
-                  icon={isEditing ? <FiCheck size={20} /> : <FiEdit size={20} />} 
-                  className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-full"
-                  onClick={handleEditClick}
-                >
-                  {isEditing ? 'Save' : 'Edit Profile'}
-                </Button>
-                <Button 
-                  icon={<HiOutlineLogout size={20} />} 
-                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Button>
-              </Flex>
-            </Flex>
-          )}
 
-          {/* My Tickets Section */}
-          {activeTab === 'tickets' && (
-            <Flex className="flex-col w-full">
-              <Typography variant="header" className="text-indigo-500 font-bold text-2xl mb-6">
-                My Tickets
-              </Typography>
-              <Flex className="w-full bg-indigo-100 p-8 rounded-lg text-lg shadow-md">
-                <Typography className="text-gray-800">
-                  <strong>Route:</strong> Kigali - Musanze <br />
-                  <strong>Date:</strong> 24th March 2025 <br />
-                  <strong>Ticket ID:</strong> #123456
-                </Typography>
+            <Flex 
+              className={`px-6 py-3 mb-1 flex items-center cursor-pointer ${activeSection === 'account' ? 'bg-indigo-50 text-indigo-600 border-r-4 border-indigo-500' : 'text-gray-600 hover:bg-gray-100'}`}
+              onClick={() => setActiveSection('account')}
+            >
+              <Flex className="w-8 h-8 rounded-full bg-indigo-100 items-center justify-center mr-3">
+                <FiEdit size={16} className={activeSection === 'account' ? 'text-indigo-600' : 'text-gray-500'} />
               </Flex>
+              <Typography className="font-medium">Account</Typography>
             </Flex>
-          )}
+
+            <Flex 
+              className={`px-6 py-3 mb-1 flex items-center cursor-pointer ${activeSection === 'security' ? 'bg-indigo-50 text-indigo-600 border-r-4 border-indigo-500' : 'text-gray-600 hover:bg-gray-100'}`}
+              onClick={() => setActiveSection('security')}
+            >
+              <Flex className="w-8 h-8 rounded-full bg-indigo-100 items-center justify-center mr-3">
+                <BsShieldLock size={16} className={activeSection === 'security' ? 'text-indigo-600' : 'text-gray-500'} />
+              </Flex>
+              <Typography className="font-medium">Security</Typography>
+            </Flex>
+
+            <Flex 
+              className={`px-6 py-3 mb-1 flex items-center cursor-pointer ${activeSection === 'tickets' ? 'bg-indigo-50 text-indigo-600 border-r-4 border-indigo-500' : 'text-gray-600 hover:bg-gray-100'}`}
+              onClick={() => setActiveSection('tickets')}
+            >
+              <Flex className="w-8 h-8 rounded-full bg-indigo-100 items-center justify-center mr-3">
+                <HiTicket size={16} className={activeSection === 'tickets' ? 'text-indigo-600' : 'text-gray-500'} />
+              </Flex>
+              <Typography className="font-medium">My Tickets</Typography>
+            </Flex>
+          </Flex>
+
+          {/* Main Content Area */}
+          <Flex className="ml-64 p-8 flex-col flex-1">
+            {activeSection === 'account' && (
+              <Flex className="flex-col w-full max-w-3xl">
+                <Typography variant="header" className="text-gray-800 font-bold text-3xl mb-6">
+                  Account
+                </Typography>
+
+                <Flex className="bg-white rounded-lg p-6 mb-6 flex-col shadow-sm border border-gray-200">
+                  <Flex className="justify-between items-center mb-4">
+                    <Typography variant="header" className="text-gray-800 font-semibold text-xl">
+                      Edit Account
+                    </Typography>
+                    <Flex className='gap-4 justify-between items-center'>
+                      <Button 
+                        className={`${isEditing ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'} ${isEditing ? 'text-white' : ''} rounded-md px-4`}
+                        onClick={handleEditClick}
+                      >
+                        {isEditing ? 'Save' : 'Edit'}
+                      </Button>
+                      <Button 
+                        className="bg-red-500 hover:bg-red-600 text-white rounded-md"
+                        disabled={!confirmDelete}
+                      >
+                        Log Out
+                      </Button>
+                    </Flex>
+                  </Flex>
+                  
+                  <Typography className="text-gray-500 mb-4">
+                    You can temporary pause your account from being viewable, this action can be undone anytime
+                  </Typography>
+
+                  <Flex className="flex-col gap-4 mt-2">
+                    <Flex className="flex-col">
+                      <Typography className="text-gray-600 mb-1">Username</Typography>
+                      {isEditing ? (
+                        <Input 
+                          value={username} 
+                          onChange={(e) => setUsername(e.target.value)} 
+                          className="border-gray-300"
+                        />
+                      ) : (
+                        <Typography className="text-gray-800 text-lg">{username}</Typography>
+                      )}
+                    </Flex>
+                    
+                    <Flex className="flex-col">
+                      <Typography className="text-gray-600 mb-1">Email</Typography>
+                      {isEditing ? (
+                        <Input 
+                          value={email} 
+                          onChange={(e) => setEmail(e.target.value)} 
+                          className="border-gray-300"
+                        />
+                      ) : (
+                        <Typography className="text-gray-800 text-lg">{email}</Typography>
+                      )}
+                    </Flex>
+                    
+                    <Flex className="flex-col">
+                      <Typography className="text-gray-600 mb-1">Phone</Typography>
+                      {isEditing ? (
+                        <Input 
+                          value={phone} 
+                          onChange={(e) => setPhone(e.target.value)} 
+                          className="border-gray-300"
+                        />
+                      ) : (
+                        <Typography className="text-gray-800 text-lg">{phone}</Typography>
+                      )}
+                    </Flex>
+                  </Flex>
+                </Flex>
+              </Flex>
+            )}
+
+            {activeSection === 'security' && (
+              <Flex className="flex-col w-full max-w-3xl">
+                <Typography variant="header" className="text-gray-800 font-bold text-3xl mb-6">
+                  Security
+                </Typography>
+                
+                <Flex className="bg-white rounded-lg p-6 flex-col shadow-sm border border-gray-200">
+                  <Typography variant="header" className="text-gray-800 font-semibold text-xl mb-4">
+                    Password
+                  </Typography>
+                  
+                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white w-40 rounded-md">
+                    Change Password
+                  </Button>
+                </Flex>
+              </Flex>
+            )}
+
+            
+            {activeSection === 'tickets' && (
+              <Flex className="flex-col w-full max-w-3xl">
+                <Typography variant="header" className="text-gray-800 font-bold text-3xl mb-6">
+                  My Tickets
+                </Typography>
+                
+                <Flex className="bg-white rounded-lg p-6 flex-col shadow-sm border border-gray-200">
+                  <Flex className="w-full p-4 border border-gray-200 rounded-lg mb-4 hover:bg-gray-50 cursor-pointer">
+                    <Typography className="text-gray-700">
+                      <strong>Route:</strong> Kigali - Musanze <br />
+                      <strong>Date:</strong> 24th March 2025 <br />
+                      <strong>Ticket ID:</strong> #123456
+                    </Typography>
+                  </Flex>
+                  
+                  <Flex className="w-full p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Typography className="text-gray-700">
+                      <strong>Route:</strong> Kigali - Huye <br />
+                      <strong>Date:</strong> 28th March 2025 <br />
+                      <strong>Ticket ID:</strong> #123789
+                    </Typography>
+                  </Flex>
+                </Flex>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
       </Flex>
     </Fragment>
