@@ -61,7 +61,9 @@ const Payment: NextPageWithLayout = () => {
       </Head>
       <Flex vertical className="bg-gray-100 h-screen p-4">
         <Flex justify="space-between" className="items-center p-2">
-          <Typography variant="title">easyGo.</Typography>
+          <Typography variant="title" className="cursor-pointer" onClick={() => router.push('/')}>
+            easyGo.
+          </Typography>
           <LoggedInUserLogo />
         </Flex>
 
