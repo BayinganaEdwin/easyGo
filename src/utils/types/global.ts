@@ -65,7 +65,7 @@ export enum SIDEBAR_LABEL_ENUMS {
   ANALYTICS = 'Analytics',
   TRIPS = 'Trips',
   SCHEDULE = 'Schedule',
-  HISTORY = 'History',
+  HISTORY = 'Tickets',
   SUPPORT = 'Support',
   SETTINGS = 'Settings',
 }
