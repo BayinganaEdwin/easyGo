@@ -1,17 +1,13 @@
-import Image from '@components/shared/image';
 import Typography from '@components/shared/typography';
-import { ProfileImage } from '@utils/images';
 import { Flex } from 'antd';
 import React from 'react';
 import { PiBellSimple } from 'react-icons/pi';
-import { MdKeyboardArrowDown } from 'react-icons/md';
 import StatsCard from '@components/shared/card/StatsCard';
 import RevenueGraph from '@components/chart/revenueGraph';
 import TopCustomersTable from './tables/TopCustomers';
+import { LoggedInUserLogo } from '@components/home/Navbar';
 
 const AnalyticsComponent = () => {
-  const inputIconSize = 20;
-
   const stats = [
     {
       title: 'Total Amount Spent',
@@ -45,18 +41,9 @@ const AnalyticsComponent = () => {
           <Typography variant="subTitle">Welcome back, Edwin 👋🏽</Typography>
         </Flex>
 
-        <Flex gap={10} align="center" className="rounded-2xl">
+        <Flex gap={10} align="center" className="rounded-2xl cursor-pointer">
           <PiBellSimple size={24} />
-          <Image
-            src={ProfileImage}
-            alt="User Profile Image"
-            className="h-6 w-6 rounded-full object-cover"
-            preview={false}
-          />
-          <Flex gap={5} className="max-w-[150px] cursor-pointer">
-            <Typography className="font-semibold line-clamp-1">Edwin Bayingana</Typography>
-            <MdKeyboardArrowDown size={inputIconSize} />
-          </Flex>
+          <LoggedInUserLogo />
         </Flex>
       </Flex>
 
