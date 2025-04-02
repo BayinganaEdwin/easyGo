@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  const token = localStorage.get(TOKEN_NAME);
+  const token = req.cookies.get(TOKEN_NAME);
   const isTokenValid = token && token.value !== 'undefined';
 
   const redirectToLogin = () => {

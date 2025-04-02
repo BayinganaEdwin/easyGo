@@ -1,8 +1,8 @@
-const withTM = require('next-transpile-modules')([
-  '@ant-design/icons', // or specific paths like '@ant-design/icons/es'
-]);
+import withTM from 'next-transpile-modules';
 
-module.exports = withTM({
+const withTranspileModules = withTM(['@ant-design/icons']);
+
+export default withTranspileModules({
   reactStrictMode: true,
   images: {
     domains: ['res.cloudinary.com', 'example.com', 'picsum.photos'],

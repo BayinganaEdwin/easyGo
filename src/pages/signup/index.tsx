@@ -14,6 +14,9 @@ import { FiUser } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import { useSignupMutation } from '@store/actions/auth';
 import { TOKEN_NAME, USER_DATA } from '@utils/constants';
+import Cookies from 'js-cookie';
+import { setToken } from '@store/reducers/app';
+import { useDispatch } from 'react-redux';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
@@ -25,6 +28,7 @@ const Signup: NextPageWithLayout = () => {
   const handleBackToWebsiteClick = () => {
     router.push('/');
   };
+  const dispatch = useDispatch();
   const onSubmit = async (data: {
     email: string;
     password: string;
@@ -41,7 +45,14 @@ const Signup: NextPageWithLayout = () => {
     try {
       const res = await signup(payload).unwrap();
       if (res?.data) {
-        const { user, token } = res.data;
+        const { user } = res.data;
+        const token = res.token;
+
+        Cookies.set(TOKEN_NAME, token, {
+          expires: 7,
+        });
+
+        dispatch(setToken(token));
 
         localStorage.setItem(TOKEN_NAME, token);
         localStorage.setItem(USER_DATA, JSON.stringify(user));
@@ -57,26 +68,24 @@ const Signup: NextPageWithLayout = () => {
       <Head>
         <title>Signup | EasyGo</title>
       </Head>
-      <Flex className="absolute top-4 left-4 z-10">
-        <Image src={EasyLogo} alt="logo" width={80} height={40} className="object-contain" />
-      </Flex>
       <Flex justify="space-between" className="h-screen bg-[#2c2638] p-2">
         {/* Left Panel */}
         <Flex
           vertical
           justify="space-between"
-          className="hidden md:flex w-1/2 rounded-3xl m- overflow-hidden">
-          <Image
-            src={EasyBus}
-            alt="logo"
-            className="object-cover w-full h-full relative opacity-50"
-          />
-          <Flex justify="flex-end" className="absolute w-[50%]">
-            <Typography
-              className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 cursor-pointer"
-              onClick={handleBackToWebsiteClick}>
-              Back to website<span>-</span>
-            </Typography>
+          className="hidden md:flex md:w-1/2 rounded-3xl overflow-hidden relative">
+          <Image src={EasyBus} alt="logo" className="object-cover w-full h-full opacity-50" />
+          <Flex justify="space-between" className="absolute w-full">
+            <Flex>
+              <Image src={EasyLogo} alt="logo" className="object-cover w-[15%] py-4 px-1" />
+            </Flex>
+            <Flex align="center" className="py-3 bg-orange-400 hover:bg-orange-500 rounded-3xl">
+              <Typography
+                className="font-medium text-base text-black px-8 hover:text-gray-900 cursor-pointer"
+                onClick={handleBackToWebsiteClick}>
+                Back to website<span>-</span>
+              </Typography>
+            </Flex>
           </Flex>
         </Flex>
 

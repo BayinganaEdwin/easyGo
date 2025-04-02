@@ -14,10 +14,14 @@ import { CgMail } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import { useLoginMutation } from '@store/actions/auth';
 import { TOKEN_NAME, USER_DATA } from '@utils/constants';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
+import { setToken } from '@store/reducers/app';
 
 const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
   const router = useRouter();
   const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   const handleBackToWebsiteClick = () => {
     router.push('/');
@@ -29,7 +33,14 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
     try {
       const res = await login(payload).unwrap();
       if (res?.data) {
-        const { user, token } = res.data;
+        const { user } = res.data;
+        const token = res.token;
+
+        Cookies.set(TOKEN_NAME, token, {
+          expires: 7,
+        });
+
+        dispatch(setToken(token));
 
         localStorage.setItem(TOKEN_NAME, token);
         localStorage.setItem(USER_DATA, JSON.stringify(user));
@@ -55,9 +66,9 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
             <Flex>
               <Image src={EasyLogo} alt="logo" className="object-cover w-[15%] py-4 px-1" />
             </Flex>
-            <Flex>
+            <Flex align="center" className="py-3 bg-orange-400 hover:bg-orange-500 rounded-3xl">
               <Typography
-                className="font-medium text-base text-black px-8 py-3 hover:bg-orange-500 hover:text-gray-900 rounded-e-3xl bg-orange-400 cursor-pointer"
+                className="font-medium text-base text-black px-8 hover:text-gray-900 cursor-pointer"
                 onClick={handleBackToWebsiteClick}>
                 Back to website<span>-</span>
               </Typography>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FiBell } from 'react-icons/fi';
 
-const LoggedInUserLogo = () => {
+export const LoggedInUserLogo = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -47,21 +47,29 @@ const LoggedInUserLogo = () => {
   );
 
   return (
-    <Popover
-      content={menuContent}
-      trigger="click"
-      open={open}
-      onOpenChange={setOpen}
-      placement="topRight"
-      overlayInnerStyle={{
-        backgroundColor: 'white',
-        padding: 0,
-        border: '0.5px solid #ffffff70',
-      }}>
-      <Flex align="center" justify="center" className="bg-primary w-8 h-8 rounded-full">
-        <Typography className="text-white">{userInitial}</Typography>
-      </Flex>
-    </Popover>
+    <>
+      {!userData ? (
+        <Typography className="text-black" onClick={() => router.push('/login')}>
+          Log in
+        </Typography>
+      ) : (
+        <Popover
+          content={menuContent}
+          trigger="click"
+          open={open}
+          onOpenChange={setOpen}
+          placement="topRight"
+          overlayInnerStyle={{
+            backgroundColor: 'white',
+            padding: 0,
+            border: '0.5px solid #ffffff70',
+          }}>
+          <Flex align="center" justify="center" className="bg-primary w-8 h-8 rounded-full">
+            <Typography className="text-white">{userInitial}</Typography>
+          </Flex>
+        </Popover>
+      )}
+    </>
   );
 };
 
