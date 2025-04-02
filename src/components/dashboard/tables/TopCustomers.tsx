@@ -22,7 +22,7 @@ const TopCustomersTable = () => {
       value={{ columns, dataSource: topCustomersData, isLoading: false }}>
       <Flex vertical gap={10}>
         <Typography variant="subTitle" className="text-gray-800">
-          Top Customers
+          Recent Tickets
         </Typography>
         <DataComponentTable />
       </Flex>

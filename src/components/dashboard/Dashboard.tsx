@@ -14,25 +14,25 @@ const AnalyticsComponent = () => {
 
   const stats = [
     {
-      title: 'Total Revenue',
-      value: 25845000,
+      title: 'Total Amount Spent',
+      value: 95000,
       image:
         'https://png.pngtree.com/element_our/png/20181227/online-payment-icon-designed-creatively-and-simple-for-freshness-for-application-png_293646.jpg',
     },
     {
       title: 'Total Trips',
-      value: 8615,
+      value: 43,
       image:
         'https://image.similarpng.com/file/similarpng/original-picture/2021/09/Bus-logo-temokate-on-transparent-background-PNG.png',
     },
-    {
-      title: 'Total Customers',
-      value: 3018,
-      image: 'https://iconape.com/wp-content/png_logo_vector/users.png',
-    },
+    // {
+    //   title: 'Total Customers',
+    //   value: 3018,
+    //   image: 'https://iconape.com/wp-content/png_logo_vector/users.png',
+    // },
     {
       title: 'Total Travel Hours',
-      value: 21506,
+      value: 135,
       image:
         'https://png.pngtree.com/png-vector/20230815/ourmid/pngtree-clock-icon-simple-flat-vector-png-image_9182653.png',
     },
@@ -67,7 +67,7 @@ const AnalyticsComponent = () => {
       </Flex>
 
       <Flex vertical gap={5}>
-        <Typography variant="subTitle">Revenue</Typography>
+        <Typography variant="subTitle">Amount Spent</Typography>
 
         <RevenueGraph />
       </Flex>

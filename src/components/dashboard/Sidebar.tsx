@@ -1,10 +1,9 @@
 import Typography from '@components/shared/typography';
 import { Flex } from 'antd';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { IoCalendarOutline, IoSettingsOutline } from 'react-icons/io5';
+import { IoSettingsOutline } from 'react-icons/io5';
 import { VscHistory } from 'react-icons/vsc';
 import { PiChatsCircle, PiHouse } from 'react-icons/pi';
-import { BsTicketPerforated } from 'react-icons/bs';
 import { ISidebarOption, SIDEBAR_LABEL_ENUMS } from '@utils/types/global';
 import { useRouter } from 'next/router';
 
@@ -49,14 +48,14 @@ export const sidebarOptions = [
     label: SIDEBAR_LABEL_ENUMS.ANALYTICS,
     icon: <PiHouse size={iconSize} />,
   },
-  {
-    label: SIDEBAR_LABEL_ENUMS.TRIPS,
-    icon: <BsTicketPerforated size={iconSize} />,
-  },
-  {
-    label: SIDEBAR_LABEL_ENUMS.SCHEDULE,
-    icon: <IoCalendarOutline size={iconSize} />,
-  },
+  // {
+  //   label: SIDEBAR_LABEL_ENUMS.TRIPS,
+  //   icon: <BsTicketPerforated size={iconSize} />,
+  // },
+  // {
+  //   label: SIDEBAR_LABEL_ENUMS.SCHEDULE,
+  //   icon: <IoCalendarOutline size={iconSize} />,
+  // },
   {
     label: SIDEBAR_LABEL_ENUMS.HISTORY,
     icon: <VscHistory size={iconSize} />,
@@ -83,7 +82,7 @@ const Sidebar = ({
     setSelectedOption(item);
     onOptionSelect(item);
   };
-  const settingsOption = sidebarOptions[sidebarOptions.length - 1];
+  // const settingsOption = sidebarOptions[sidebarOptions.length - 1];
 
   const handleLogoClick = () => {
     router.replace('/');
@@ -98,7 +97,7 @@ const Sidebar = ({
 
         <Flex className="flex-col mt-6">
           {sidebarOptions.map((item, index) => {
-            if (item.label === 'Settings') return;
+            // if (item.label === 'Settings') return;
             const isSelected = selectedOption.label === item.label;
             return (
               <SidebarOption
@@ -112,13 +111,13 @@ const Sidebar = ({
         </Flex>
       </Flex>
 
-      <div className="pl-2">
+      {/* <div className="pl-2">
         <SidebarOption
           item={settingsOption}
           isSelected={selectedOption.label === settingsOption.label}
           onClick={() => handleOptionClick(settingsOption)}
         />
-      </div>
+      </div> */}
     </Flex>
   );
 };

@@ -6,19 +6,19 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 
 const RevenueGraph: FC = () => {
   const data = [
-    { date: 'Mar', amount: 110500 },
-    { date: 'Apr', amount: 150000 },
-    { date: 'May', amount: 165000 },
-    { date: 'Jun', amount: 180000 },
-    { date: 'Jul', amount: 140500 },
-    { date: 'Aug', amount: 175000 },
-    { date: 'Sep', amount: 190000 },
-    { date: 'Oct', amount: 200500 },
-    { date: 'Nov', amount: 215000 },
-    { date: 'Dec', amount: 225000 },
-    { date: 'Jan', amount: 120000 },
-    { date: 'Feb', amount: 135000 },
-    { date: 'Mar', amount: 145000 },
+    { date: 'Mar', amount: 11050 },
+    { date: 'Apr', amount: 15000 },
+    { date: 'May', amount: 16500 },
+    { date: 'Jun', amount: 18000 },
+    { date: 'Jul', amount: 14050 },
+    { date: 'Aug', amount: 17500 },
+    { date: 'Sep', amount: 19000 },
+    { date: 'Oct', amount: 20050 },
+    { date: 'Nov', amount: 21500 },
+    { date: 'Dec', amount: 22500 },
+    { date: 'Jan', amount: 12000 },
+    { date: 'Feb', amount: 13500 },
+    { date: 'Mar', amount: 14500 },
   ];
 
   return (
