@@ -180,7 +180,6 @@ const TopCustomersTable = () => {
       email: booking.user.email,
       route: `${booking.schedule.route.from} - ${booking.schedule.route.to}`,
       busCompany: booking.schedule.route.bus_company.name,
-      // departureTime: new Date(booking.schedule.departure_time).toLocaleString(),
       departureTime: dateFormatterNth(booking.schedule.departure_time, 'D, MMM YYYY'),
       price: booking.schedule.price,
       status: booking.status,
