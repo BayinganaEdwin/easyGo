@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Fragment, ReactElement } from 'react';
 import { NextPage } from 'next';
 import AuthLayout from '@layouts/auth';
-import { Flex, Radio, Checkbox, Button } from 'antd';
+import { Flex, Radio, Checkbox, Button, Modal } from 'antd';
 import Typography from '@components/shared/typography';
 import Input from '@components/shared/input';
 import { Form } from 'antd';
@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { MTNMOMO, VisaMCF } from '@utils/images';
 import { useRouter } from 'next/router';
 import { LoggedInUserLogo } from '@components/home/Navbar';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactElement;
@@ -41,6 +42,17 @@ const Payment: NextPageWithLayout = () => {
   const [baggageSize, setBaggageSize] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('VisaMCF');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalVisible(true);
+    }, 5000);
+  };
 
   return (
     <Fragment>
@@ -59,7 +71,7 @@ const Payment: NextPageWithLayout = () => {
               vertical
               className=" hover:shadow-md rounded-xl w-[100%] mt-6 mb-6 p-4 gap-4 bg-slate-50 ">
               <Typography variant="title">Complete Payment</Typography>
-              <Form>
+              <Form onFinish={handleSubmit}>
                 <Flex vertical className="gap-6">
                   <Typography variant="subTitle" className="block mb-2 font-medium">
                     How would you like to pay?
@@ -261,7 +273,7 @@ const Payment: NextPageWithLayout = () => {
                         <Checkbox className="text-base text-black">
                           I agree to the{' '}
                           <a className="text-indigo-400 hover:text-indigo-600" href="#">
-                            Terms&Conditions
+                            Terms & Conditions
                           </a>
                         </Checkbox>
                       </Flex>
@@ -277,7 +289,8 @@ const Payment: NextPageWithLayout = () => {
                       <Button
                         type="primary"
                         htmlType="submit"
-                        className=" font-semibold text-white hover:bg-lime-800">
+                        className="font-semibold text-white hover:bg-lime-800"
+                        loading={loading}>
                         Confirm Payment
                       </Button>
                     </Flex>
@@ -294,24 +307,50 @@ const Payment: NextPageWithLayout = () => {
             </Flex>
             <hr className="border-t border-gray-300 w-[65%]" />
             <Flex vertical className="mb-2">
-              <Typography variant="body" className="font-medium">
+              <Typography variant="subTitle" className="font-bold">
                 Travel Details
               </Typography>
             </Flex>
             <Typography className="text-gray-700">Customer: {customerName || 'N/A'}</Typography>
             <Typography className="text-gray-700">Baggage Size: {baggageSize || 'N/A'}</Typography>
-            <Flex className="gap-6">
-              <Typography className="text-gray-700">From: Kigali</Typography>
-              <Typography className="text-gray-700">To: Huye</Typography>
-            </Flex>
-            <Flex className="gap-6">
+            <Typography className="text-gray-700">From: Kigali</Typography>
+            <Typography className="text-gray-700">To: Huye</Typography>
+            {/* <Flex className="gap-6">
               <Typography className="text-gray-700">Dept Date/Time</Typography>
               <Typography className="text-gray-700">Est Arrival Time</Typography>
-            </Flex>
-            <Typography className="text-gray-700">Ticket Number</Typography>
+            </Flex> */}
+            <Typography className="text-gray-700">Ticket Number: TIC345TX</Typography>
             <Typography className="text-gray-700">Ticket Price: 3,000 RWF</Typography>
           </Flex>
         </Flex>
+
+        <Modal
+          open={isModalVisible}
+          title="Payment Successful"
+          centered
+          closable={false}
+          footer={[
+            <Button
+              key="home"
+              onClick={() => router.push('/')}
+              className="font-semibold bg-gray-200 text-black hover:bg-gray-300">
+              Home
+            </Button>,
+            <Button
+              key="dashboard"
+              onClick={() => router.push('/dashboard')}
+              className="font-semibold text-white hover:bg-lime-800">
+              Dashboard
+            </Button>,
+          ]}
+          onCancel={() => setIsModalVisible(false)}>
+          <Flex justify="center" align="center" className="text-green-500">
+            <CheckCircleOutlined style={{ fontSize: 48 }} />
+          </Flex>
+          <Typography className="text-center text-white">
+            Your payment was successfully processed!
+          </Typography>
+        </Modal>
       </Flex>
     </Fragment>
   );
