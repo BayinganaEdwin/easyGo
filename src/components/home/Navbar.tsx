@@ -64,7 +64,10 @@ export const LoggedInUserLogo = () => {
             padding: 0,
             border: '0.5px solid #ffffff70',
           }}>
-          <Flex align="center" justify="center" className="bg-primary w-8 h-8 rounded-full">
+          <Flex
+            align="center"
+            justify="center"
+            className="bg-primary w-8 h-8 rounded-full cursor-pointer">
             <Typography className="text-white">{userInitial}</Typography>
           </Flex>
         </Popover>
