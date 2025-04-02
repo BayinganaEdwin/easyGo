@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useAnimateModal = () => {
   const [isAnimating, setIsAnimating] = useState(false);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useSelection = (defaultItem: string | number | any) => {
   const [selectedItem, setSelectedItem] = useState(defaultItem);
