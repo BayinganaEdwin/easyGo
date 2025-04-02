@@ -3,18 +3,15 @@ import Typography from '@components/shared/typography';
 import { Flex, Input, Modal, message, Tabs } from 'antd';
 import { FiEdit } from 'react-icons/fi';
 import { BsShieldLock } from 'react-icons/bs';
-import { useRouter } from 'next/router';
-import { TOKEN_NAME, USER_DATA } from '@utils/constants';
 import Button from '@components/shared/button';
 
 const { TabPane } = Tabs;
 
 const SettingsComponent = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>('@divine');
-  const [email, setEmail] = useState<string>('birasadivinelaura2@gmail.com');
-  const [phone, setPhone] = useState<string>('+250 123 456 789');
-  const router = useRouter();
+  const [username, setUsername] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [phone, setPhone] = useState<string>();
 
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -24,12 +21,6 @@ const SettingsComponent = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem(TOKEN_NAME);
-    localStorage.removeItem(USER_DATA);
-    router.push('/login');
   };
 
   const showChangePasswordModal = () => {
@@ -108,6 +99,7 @@ const SettingsComponent = () => {
                         <Input
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
+                          defaultValue="divine"
                           className="border-gray-300"
                         />
                       ) : (
@@ -120,6 +112,7 @@ const SettingsComponent = () => {
                         <Input
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
+                          defaultValue="birasadivinelaura2@gmail.com"
                           className="border-gray-300"
                         />
                       ) : (
@@ -132,6 +125,7 @@ const SettingsComponent = () => {
                         <Input
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
+                          defaultValue="+250 123 456 789"
                           className="border-gray-300"
                         />
                       ) : (

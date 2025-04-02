@@ -1,4 +1,3 @@
-import { Product } from './product';
 import { UserSchema } from './user';
 
 export type IPagination = {
@@ -43,7 +42,6 @@ export type ApiResponse = {
   status: number;
   message: string;
   data: {
-    products: Product[];
     pagination: Pagination;
   };
 };

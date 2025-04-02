@@ -1,10 +1,6 @@
-import { notification } from "@components/antDNotificationWithRedux";
-import type { Middleware, MiddlewareAPI } from "@reduxjs/toolkit";
-import {
-  combineReducers,
-  configureStore,
-  isRejectedWithValue,
-} from "@reduxjs/toolkit";
+import { notification } from '@components/antDNotificationWithRedux';
+import type { Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, isRejectedWithValue } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -14,13 +10,13 @@ import {
   REHYDRATE,
   persistReducer,
   persistStore,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { baseAPI } from "./api";
-import appReducer, { clearToken } from "./reducers/app";
-import userReducer, { logout } from "./reducers/users";
-import { PERSIST_KEY } from "@utils/constants";
-import { handle401Error } from "@utils/helpers/redirection";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { baseAPI } from './api';
+import appReducer, { clearToken } from './reducers/app';
+import userReducer, { logout } from './reducers/users';
+import { PERSIST_KEY } from '@utils/constants';
+import { handle401Error } from '@utils/helpers/redirection';
 
 interface Payload {
   status?: number;
@@ -39,47 +35,40 @@ const persistConfig = {
   key: PERSIST_KEY,
   version: 1,
   storage,
-  blacklist: [baseAPI.reducerPath, "userReducer"],
+  blacklist: [baseAPI.reducerPath, 'userReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const rtkQueryErrorLogger: Middleware =
-  (api: MiddlewareAPI) => (next) => (action: unknown) => {
-    const typedAction = action as { payload?: Payload };
+const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) => (action: unknown) => {
+  const typedAction = action as { payload?: Payload };
 
-    if (typedAction?.payload?.status === 401) {
-      api.dispatch(logout());
-      api.dispatch(clearToken());
-      handle401Error();
+  if (typedAction?.payload?.status === 401) {
+    api.dispatch(logout());
+    api.dispatch(clearToken());
+    handle401Error();
 
-      notification.open({
-        type: "error",
-        message:
-          typedAction.payload?.data?.message ||
-          "Sorry, something went wrong...",
-        key: "global_error_msg",
-      });
-      return next(action);
-    } else {
-      if (isRejectedWithValue(typedAction)) {
-        const isNotAllowed = typedAction.payload?.data?.message?.includes(
-          "you are not allowed to",
-        );
-        if (!isNotAllowed) {
-          notification.open({
-            type: "error",
-            message:
-              typedAction.payload?.data?.message ||
-              "Sorry, something went wrong...",
-            key: "global_error_msg",
-          });
-        }
+    notification.open({
+      type: 'error',
+      message: typedAction.payload?.data?.message || 'Sorry, something went wrong...',
+      key: 'global_error_msg',
+    });
+    return next(action);
+  } else {
+    if (isRejectedWithValue(typedAction)) {
+      const isNotAllowed = typedAction.payload?.data?.message?.includes('you are not allowed to');
+      if (!isNotAllowed) {
+        notification.open({
+          type: 'error',
+          message: typedAction.payload?.data?.message || 'Sorry, something went wrong...',
+          key: 'global_error_msg',
+        });
       }
     }
+  }
 
-    return next(action);
-  };
+  return next(action);
+};
 
 const middleware = (getDefaultMiddleware: any) =>
   getDefaultMiddleware({

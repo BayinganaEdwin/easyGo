@@ -1,4 +1,4 @@
-import { useWindowResize } from "./useWindowResize";
+import { useWindowResize } from './useWindowResize';
 
 const useScreenSizes = () => {
   const { width } = useWindowResize();

@@ -26,12 +26,6 @@
       "@utils/*": ["src/utils/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".eslintrc.ts",
-    "tailwind.config.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.ts", "tailwind.config.ts"],
   "exclude": ["node_modules"]
 }
