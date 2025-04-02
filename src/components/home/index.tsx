@@ -116,7 +116,6 @@ const HomeContent: React.FC = () => {
     setFilteredTickets(filtered);
   }, [from, to]);
 
-  // Handle clicking a most known place
   const handlePlaceClick = (place: string) => {
     setFrom((prevFrom) => (prevFrom === place ? '' : place));
     setTo((prevTo) => (prevTo === place ? '' : prevTo || place));
