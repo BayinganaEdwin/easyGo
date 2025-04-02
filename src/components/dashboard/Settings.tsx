@@ -1,23 +1,35 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Typography from '@components/shared/typography';
-import { Flex, Input, Modal, message, Tabs } from 'antd';
+import { Input as AntdInput, Flex, Modal, message, Tabs } from 'antd';
 import { FiEdit } from 'react-icons/fi';
 import { BsShieldLock } from 'react-icons/bs';
 import Button from '@components/shared/button';
+import Input from '@components/shared/input';
+import { USER_DATA } from '@utils/constants';
 
 const { TabPane } = Tabs;
 
 const SettingsComponent = () => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [email, setEmail] = useState<any>();
   const [phone, setPhone] = useState<string>();
-
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  // Load user data from localStorage
+  useEffect(() => {
+    const storedUserData = localStorage.getItem(USER_DATA);
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUsername(userData.name || '');
+      setEmail(userData.email || '');
+      setPhone(userData.phone || '+250788112233');
+    }
+  }, []);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -94,7 +106,7 @@ const SettingsComponent = () => {
                   </Flex>
                   <Flex className="flex-col gap-4 mt-2">
                     <Flex className="flex-col">
-                      <Typography className="text-gray-600 mb-1">Username</Typography>
+                      <Typography className="text-gray-600 mb-1 font-bold">Username</Typography>
                       {isEditing ? (
                         <Input
                           value={username}
@@ -107,7 +119,7 @@ const SettingsComponent = () => {
                       )}
                     </Flex>
                     <Flex className="flex-col">
-                      <Typography className="text-gray-600 mb-1">Email</Typography>
+                      <Typography className="text-gray-600 mb-1 font-bold">Email</Typography>
                       {isEditing ? (
                         <Input
                           value={email}
@@ -120,7 +132,7 @@ const SettingsComponent = () => {
                       )}
                     </Flex>
                     <Flex className="flex-col">
-                      <Typography className="text-gray-600 mb-1">Phone</Typography>
+                      <Typography className="text-gray-600 mb-1 font-bold">Phone</Typography>
                       {isEditing ? (
                         <Input
                           value={phone}
@@ -163,39 +175,6 @@ const SettingsComponent = () => {
                 </Flex>
               </Flex>
             </TabPane>
-
-            {/* <TabPane
-              tab={
-                <Flex className="items-center">
-                  <Flex className="w-8 h-8 rounded-full bg-indigo-100 items-center justify-center mr-3">
-                    <HiTicket size={16} className="text-gray-500" />
-                  </Flex>
-                  <Typography className="font-medium">My Tickets</Typography>
-                </Flex>
-              }
-              key="tickets">
-              <Flex className="flex-col w-full max-w-3xl">
-                <Typography variant="header" className="text-gray-800 font-bold text-3xl mb-6">
-                  My Tickets
-                </Typography>
-                <Flex className="bg-white rounded-lg p-6 flex-col shadow-sm border border-gray-200">
-                  <Flex className="w-full p-4 border border-gray-200 rounded-lg mb-4 hover:bg-gray-50 cursor-pointer">
-                    <Typography className="text-gray-700">
-                      <strong>Route:</strong> Kigali - Musanze <br />
-                      <strong>Date:</strong> 24th March 2025 <br />
-                      <strong>Ticket ID:</strong> #123456
-                    </Typography>
-                  </Flex>
-                  <Flex className="w-full p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <Typography className="text-gray-700">
-                      <strong>Route:</strong> Kigali - Huye <br />
-                      <strong>Date:</strong> 28th March 2025 <br />
-                      <strong>Ticket ID:</strong> #123789
-                    </Typography>
-                  </Flex>
-                </Flex>
-              </Flex>
-            </TabPane> */}
           </Tabs>
         </Flex>
       </Flex>
@@ -206,7 +185,7 @@ const SettingsComponent = () => {
         open={isChangePasswordVisible}
         onCancel={handleChangePasswordCancel}
         footer={[
-          <Button key="cancel" onClick={handleChangePasswordCancel}>
+          <Button key="cancel" type="secondary" onClick={handleChangePasswordCancel}>
             Cancel
           </Button>,
           <Button key="submit" type="primary" onClick={handleChangePassword}>
@@ -218,24 +197,24 @@ const SettingsComponent = () => {
             <div className="bg-red-100 text-red-700 p-2 rounded mb-2">{passwordError}</div>
           )}
           <Flex className="flex-col">
-            <Typography className="text-gray-600 mb-1">Current Password</Typography>
-            <Input.Password
+            <Typography className="mb-1 text-white">Current Password</Typography>
+            <AntdInput.Password
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="Enter your current password"
             />
           </Flex>
           <Flex className="flex-col">
-            <Typography className="text-gray-600 mb-1">New Password</Typography>
-            <Input.Password
+            <Typography className="text-white mb-1">New Password</Typography>
+            <AntdInput.Password
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Enter your new password"
             />
           </Flex>
           <Flex className="flex-col">
-            <Typography className="text-gray-600 mb-1">Confirm New Password</Typography>
-            <Input.Password
+            <Typography className="text-white mb-1">Confirm New Password</Typography>
+            <AntdInput.Password
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your new password"
