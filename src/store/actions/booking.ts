@@ -10,7 +10,13 @@ const bookingEndpoints = baseAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
-    bookTicket: builder.mutation<GenericResponse<any>, void>({
+    getSchedules: builder.query<any, void>({
+      query: () => ({
+        url: 'schedule',
+        method: 'GET',
+      }),
+    }),
+    bookTicket: builder.mutation<GenericResponse<any>, { schedule_id: string }>({
       query: (body) => ({
         url: 'booking',
         method: 'POST',
@@ -20,4 +26,5 @@ const bookingEndpoints = baseAPI.injectEndpoints({
   }),
 });
 
-export const { useGetMyBookingsQuery, useBookTicketMutation } = bookingEndpoints;
+export const { useGetMyBookingsQuery, useBookTicketMutation, useGetSchedulesQuery } =
+  bookingEndpoints;

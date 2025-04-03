@@ -28,5 +28,5 @@ export function middleware(req: NextRequest) {
     return isTokenValid ? NextResponse.redirect(new URL(routes.home.url, req.url)) : allowAccess();
   }
 
-  return allowAccess();
+  // return allowAccess();
 }

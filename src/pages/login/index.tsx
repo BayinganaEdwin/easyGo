@@ -15,7 +15,6 @@ import { useRouter } from 'next/router';
 import { useLoginMutation } from '@store/actions/auth';
 import { TOKEN_NAME, USER_DATA } from '@utils/constants';
 import { useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
 import { setToken } from '@store/reducers/app';
 
 const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = () => {
@@ -36,9 +35,9 @@ const Login: NextPage & { getLayout?: (page: ReactElement) => ReactElement } = (
         const { user } = res.data;
         const token = res.token;
 
-        Cookies.set(TOKEN_NAME, token, {
-          expires: 7,
-        });
+        // Cookies.set(TOKEN_NAME, token, {
+        //   expires: 7,
+        // });
 
         dispatch(setToken(token));
 

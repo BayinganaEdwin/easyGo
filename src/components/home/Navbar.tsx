@@ -80,7 +80,9 @@ const Navbar = () => {
   return (
     <Flex vertical justify="space-between">
       <Flex justify="space-between">
-        <Typography variant="title">easyGo.</Typography>
+        <Typography variant="title" className="cursor-pointer">
+          easyGo.
+        </Typography>
         <Flex gap={20} align="center" className="cursor-pointer">
           <FiBell size={22} className="text-neutral-700" />
           <LoggedInUserLogo />
