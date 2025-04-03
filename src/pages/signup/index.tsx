@@ -14,7 +14,6 @@ import { FiUser } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import { useSignupMutation } from '@store/actions/auth';
 import { TOKEN_NAME, USER_DATA } from '@utils/constants';
-import Cookies from 'js-cookie';
 import { setToken } from '@store/reducers/app';
 import { useDispatch } from 'react-redux';
 
@@ -48,9 +47,9 @@ const Signup: NextPageWithLayout = () => {
         const { user } = res.data;
         const token = res.token;
 
-        Cookies.set(TOKEN_NAME, token, {
-          expires: 7,
-        });
+        // Cookies.set(TOKEN_NAME, token, {
+        //   expires: 7,
+        // });
 
         dispatch(setToken(token));
 
